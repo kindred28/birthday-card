@@ -7,29 +7,34 @@
     <style>
         body {
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif, 'Segoe UI', sans-serif;
             overflow: hidden;
             position: relative;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 10vw, 6rem); /* မျက်နှာပြင်အရွယ်အစားနဲ့ အလိုအလျောက် ပြောင်း */
             color: #fff;
             text-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
             animation: glow 2s ease-in-out infinite alternate;
+            text-align: center;
+            margin: 0 0 20px 0;
         }
 
         p {
-            font-size: 2rem;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
             color: #fff;
-            margin-top: 20px;
+            margin: 0;
             text-align: center;
+            max-width: 90%;
         }
 
         @keyframes glow {
@@ -41,11 +46,11 @@
             }
         }
 
-        /* Balloons */
+        /* Balloons - responsive */
         .balloon {
             position: absolute;
+            font-size: clamp(2rem, 8vw, 4rem);
             bottom: -100px;
-            font-size: 3rem;
             animation: float 15s linear infinite;
             opacity: 0.8;
         }
@@ -70,24 +75,29 @@
     </style>
 </head>
 <body>
-    <h1>Happy Birthday Ko Rayy!</h1>
+    <h1>Happy Birthday Thin Ei San!</h1>
     <p>Wishing you a fantastic year ahead filled with joy and adventure!</p>
 
     <!-- Balloons -->
-    <div class="balloon" style="left: 10%; animation-delay: 0s;">🎈</div>
-    <div class="balloon" style="left: 30%; animation-delay: 3s;">🎈</div>
-    <div class="balloon" style="left: 50%; animation-delay: 6s;">🎉</div>
-    <div class="balloon" style="left: 70%; animation-delay: 9s;">🎈</div>
-    <div class="balloon" style="left: 90%; animation-delay: 12s;">🎊</div>
+    <div class="balloon" style="left: 5%; animation-delay: 0s;">🎈</div>
+    <div class="balloon" style="left: 25%; animation-delay: 3s;">🎈</div>
+    <div class="balloon" style="left: 45%; animation-delay: 6s;">🎉</div>
+    <div class="balloon" style="left: 65%; animation-delay: 9s;">🎈</div>
+    <div class="balloon" style="left: 85%; animation-delay: 12s;">🎊</div>
 
     <canvas id="confetti"></canvas>
 
     <script>
-        // Simple confetti function
         const canvas = document.getElementById('confetti');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+
+        // Resize canvas when window changes (important for mobile!)
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
 
         let confettiParticles = [];
 
@@ -137,8 +147,9 @@
         createConfetti();
         animateConfetti();
 
-        // Trigger more confetti on click (optional fun!)
+        // More confetti on click/touch
         window.addEventListener('click', createConfetti);
+        window.addEventListener('touchstart', createConfetti);
     </script>
 </body>
 </html>
